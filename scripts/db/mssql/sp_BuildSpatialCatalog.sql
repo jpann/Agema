@@ -50,7 +50,7 @@ BEGIN
 			AND t.TABLE_NAME = c.TABLE_NAME	
 		WHERE t.TABLE_TYPE = 'BASE TABLE'
 			AND DATA_TYPE in ('geometry','geography')
-			AND t.TABLE_CATALOG = 'BMPTracking'
+			AND t.TABLE_CATALOG = 'your-database-goes-here'
 		ORDER BY ORDINAL_POSITION
 
 	OPEN @cur 
