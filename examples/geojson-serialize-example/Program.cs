@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Agema.Common;
 using GeoJSON.Net.Geometry;
 using Newtonsoft.Json;
 
 namespace geojson_serialize_example
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var points = new List<Point>
             {
@@ -30,7 +27,7 @@ namespace geojson_serialize_example
             var outputFilePath = Path.Combine(TempFileHelper.GetTemporaryDirectory(),
                 $"{Guid.NewGuid().ToString("N")}.json");
 
-            
+
             File.WriteAllText(outputFilePath, actualJson);
 
             Console.WriteLine($"GeoJson Geometry Written To: {outputFilePath}");
