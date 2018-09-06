@@ -10,6 +10,7 @@ CASE
 	WHEN DATA_TYPE IN ('tinyint') THEN 'byte'	
 	WHEN DATA_TYPE IN ('bit') THEN 'bool'
 	WHEN DATA_TYPE IN ('numeric') THEN 'decimal'	
+	WHEN DATA_TYPE IN ('decimal') THEN 'decimal'
 	WHEN DATA_TYPE IN ('datetime','datetime2') THEN 'DateTime'	
 	ELSE 'string'
 END
