@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dot-spatial-test", "dot-spatial-test.csproj", "{9070A5C4-5797-4425-815C-393C833BCECF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9070A5C4-5797-4425-815C-393C833BCECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9070A5C4-5797-4425-815C-393C833BCECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9070A5C4-5797-4425-815C-393C833BCECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9070A5C4-5797-4425-815C-393C833BCECF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7C117D0-A978-47DE-8CE1-86A6C1CE9D05}
+	EndGlobalSection
+EndGlobal
