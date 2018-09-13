@@ -3,22 +3,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
-using System.Net;
-using System.IO;
-using System.Threading;
 using System.Diagnostics;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
-using System.Web;
+using System.Threading;
 using Agema.Common.Diagnostics;
+using BigFileHoleCmd.Properties;
 using Common.Logging;
 using ILog = Common.Logging.ILog;
 
 namespace BigFileHoleCmd
 {
-
     public class SimpleHttpServer
     {
         /// <summary>
@@ -26,17 +23,7 @@ namespace BigFileHoleCmd
         /// </summary>
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public string Prefix { get;  }
-
-        private readonly string[] _indexFiles =
-        {
-            "index.html",
-            "index.htm",
-            "default.html",
-            "default.htm"
-        };
-
-        private static IDictionary<string, string> _mimeTypeMappings =
+        private static readonly IDictionary<string, string> _mimeTypeMappings =
             new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
                 #region extension to MIME type list
@@ -109,55 +96,67 @@ namespace BigFileHoleCmd
                 #endregion
             };
 
-        private Thread _serverThread;
-        private string _rootDirectory;
+        private readonly string[] _indexFiles =
+        {
+            "index.html",
+            "index.htm",
+            "default.html",
+            "default.htm"
+        };
+
         private HttpListener _listener;
         private int _port;
+        private string _rootDirectory;
+
+        private Thread _serverThread;
+
+        /// <summary>
+        ///     Construct server with given port.
+        /// </summary>
+        /// <param name="path">Directory path to serve.</param>
+        /// <param name="port">Port of the server.</param>
+        /// ///
+        /// <param name="bufferSizeBytes">Size of the buffer to use when reading streams.</param>
+        public SimpleHttpServer(string path, int port, int bufferSizeBytes)
+        {
+            Prefix = $"http://{Settings.Default.Host}:{port}/";
+
+            BufferSizeBytes = bufferSizeBytes;
+
+            Initialize(path, port);
+        }
+
+        /// <summary>
+        ///     Construct server with suitable port.
+        /// </summary>
+        /// <param name="path">Directory path to serve.</param>
+        public SimpleHttpServer(string path)
+        {
+            Prefix = $"http://{Settings.Default.Host}:{_port}/";
+
+            //get an empty port
+            var l = new TcpListener(IPAddress.Loopback, 0);
+            l.Start();
+            var port = ((IPEndPoint) l.LocalEndpoint).Port;
+            l.Stop();
+            Initialize(path, port);
+        }
+
+        public string Prefix { get; }
 
         public int Port
         {
             get { return _port; }
             private set { }
         }
+
         /// <summary>
-        /// Size of the buffer in bytes.
+        ///     Size of the buffer in bytes.
         /// </summary>
         private int BufferSizeBytes { get; }
 
         /// <summary>
-        /// Construct server with given port.
-        /// </summary>
-        /// <param name="path">Directory path to serve.</param>
-        /// <param name="port">Port of the server.</param>
-        /// /// <param name="bufferSizeBytes">Size of the buffer to use when reading streams.</param>
-        public SimpleHttpServer(string path, int port, int bufferSizeBytes)
-        {
-            Prefix= $"http://{Properties.Settings.Default.Host}:{port}/";
-
-            BufferSizeBytes = bufferSizeBytes;
-
-            this.Initialize(path, port);
-        }
-
-        /// <summary>
-        /// Construct server with suitable port.
-        /// </summary>
-        /// <param name="path">Directory path to serve.</param>
-        public SimpleHttpServer(string path)
-        {
-
-            Prefix= $"http://{Properties.Settings.Default.Host}:{_port}/";
-
-            //get an empty port
-            TcpListener l = new TcpListener(IPAddress.Loopback, 0);
-            l.Start();
-            int port = ((IPEndPoint) l.LocalEndpoint).Port;
-            l.Stop();
-            this.Initialize(path, port);
-        }
-
-        /// <summary>
-        /// Stop server and dispose all functions.
+        ///     Stop server and dispose all functions.
         /// </summary>
         public void Stop()
         {
@@ -168,17 +167,16 @@ namespace BigFileHoleCmd
         private void Listen()
         {
             _listener = new HttpListener();
-            
+
             try
             {
                 _listener.Prefixes.Add(Prefix);
                 _listener.Start();
 
                 while (true)
-                {
                     try
                     {
-                        HttpListenerContext context = _listener.GetContext();
+                        var context = _listener.GetContext();
                         Process(context);
                     }
                     catch (Exception ex)
@@ -186,8 +184,6 @@ namespace BigFileHoleCmd
                         Log.Error(ex);
                         Console.Write(ex.Message);
                     }
-                }
-
             }
             catch (HttpListenerException httpListenerException)
             {
@@ -197,7 +193,8 @@ namespace BigFileHoleCmd
                 if (httpListenerException.Message.Equals("Access is Denied",
                     StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var errmsg = $"Could not add prefix: {Prefix} to listener. Perhaps: netsh http add urlacl url={Prefix} user=<username>";
+                    var errmsg =
+                        $"Could not add prefix: {Prefix} to listener. Perhaps: netsh http add urlacl url={Prefix} user=<username>";
                     Console.WriteLine(errmsg);
                     Log.Error(errmsg);
                 }
@@ -216,33 +213,28 @@ namespace BigFileHoleCmd
 
         private void Process(HttpListenerContext context)
         {
-            string filename = context.Request.Url.AbsolutePath;
+            var filename = context.Request.Url.AbsolutePath;
             Console.WriteLine($"HTTP POST {context.Request.HttpMethod} FILE {filename}");
 
-            if (context.Request.HttpMethod.Equals("POST",StringComparison.InvariantCultureIgnoreCase))
+            if (context.Request.HttpMethod.Equals("POST", StringComparison.InvariantCultureIgnoreCase))
             {
                 ProcessPost(context);
                 return;
             }
-            
+
             filename = filename.Substring(1);
 
             if (string.IsNullOrEmpty(filename))
-            {
-                foreach (string indexFile in _indexFiles)
-                {
+                foreach (var indexFile in _indexFiles)
                     if (File.Exists(Path.Combine(_rootDirectory, indexFile)))
                     {
                         filename = indexFile;
                         break;
                     }
-                }
-            }
 
             filename = Path.Combine(_rootDirectory, filename);
 
             if (File.Exists(filename))
-            {
                 try
                 {
                     Stream input = new FileStream(filename, FileMode.Open);
@@ -255,9 +247,9 @@ namespace BigFileHoleCmd
                     context.Response.ContentLength64 = input.Length;
                     context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
                     context.Response.AddHeader("Last-Modified",
-                        System.IO.File.GetLastWriteTime(filename).ToString("r"));
+                        File.GetLastWriteTime(filename).ToString("r"));
 
-                    byte[] buffer = new byte[1024 * 16];
+                    var buffer = new byte[1024 * 16];
                     int nbytes;
                     while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
                         context.Response.OutputStream.Write(buffer, 0, nbytes);
@@ -270,12 +262,8 @@ namespace BigFileHoleCmd
                 {
                     context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
                 }
-
-            }
             else
-            {
                 context.Response.StatusCode = (int) HttpStatusCode.NotFound;
-            }
 
             context.Response.OutputStream.Close();
         }
@@ -288,19 +276,18 @@ namespace BigFileHoleCmd
             {
                 var stopwatch = Stopwatch.StartNew();
 
-                string filename = context.Request.Url.LocalPath.Replace("/",string.Empty);
+                var filename = context.Request.Url.LocalPath.Replace("/", string.Empty);
 
-                var fullpath = Path.Combine(Properties.Settings.Default.UploadDirectory, filename);
-            
-                ReadStream(context, fullpath );
+                var fullpath = Path.Combine(Settings.Default.UploadDirectory, filename);
+
+                ReadStream(context, fullpath);
                 stopwatch.Stop();
-            
+
                 Console.WriteLine($"File written to: {fullpath} in {stopwatch.ElapsedTime()}.");
 
                 context.Response.StatusCode = (int) HttpStatusCode.OK;
                 context.Response.OutputStream.Flush();
                 context.Response.OutputStream.Close();
-                
             }
             catch (Exception ex)
             {
@@ -312,7 +299,6 @@ namespace BigFileHoleCmd
                 context.Response.OutputStream.Flush();
                 context.Response.OutputStream.Close();
             }
-
         }
 
         public void ReadStream(HttpListenerContext context, string filePath)
@@ -321,7 +307,7 @@ namespace BigFileHoleCmd
             int bytesRead;
             var buffer = new byte[chunkSize];
 
-            string currentRatioString = string.Empty;
+            var currentRatioString = string.Empty;
 
             double lastRatio = 0;
 
@@ -329,19 +315,20 @@ namespace BigFileHoleCmd
             long currentSize = 0;
 
             using (var reader = new BinaryReader(context.Request.InputStream))
-            using (var filestream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read, 4096, true))
+            using (var filestream =
+                new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read, 4096, true))
             using (var writer = new BinaryWriter(filestream))
             {
                 while ((bytesRead = reader.Read(buffer, 0, buffer.Length)) > 0)
                 {
                     currentSize += bytesRead;
 
-                    var ratio = (currentSize / (double) totalSize) * 100;
+                    var ratio = currentSize / (double) totalSize * 100;
 
                     // ReSharper disable once CompareOfFloatsByEqualityOperator
-                    if (lastRatio != Math.Round(ratio,1, MidpointRounding.AwayFromZero))
+                    if (lastRatio != Math.Round(ratio, 1, MidpointRounding.AwayFromZero))
                     {
-                        lastRatio = Math.Round(ratio,1, MidpointRounding.AwayFromZero);
+                        lastRatio = Math.Round(ratio, 1, MidpointRounding.AwayFromZero);
                         Console.WriteLine($"{lastRatio}% complete. {currentSize} bytes read of {totalSize} bytes.");
                     }
 
@@ -352,15 +339,16 @@ namespace BigFileHoleCmd
 
                     writer.Write(buffer);
                 }
+
                 writer.Close();
             }
         }
 
         private void Initialize(string path, int port)
         {
-            this._rootDirectory = path;
-            this._port = port;
-            _serverThread = new Thread(this.Listen);
+            _rootDirectory = path;
+            _port = port;
+            _serverThread = new Thread(Listen);
             _serverThread.Start();
         }
     }

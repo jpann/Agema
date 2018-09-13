@@ -18,7 +18,7 @@ namespace BigFileHoleCmd
 
             if (!string.IsNullOrEmpty(Settings.Default.WebsiteDirectory))
                 path = Settings.Default.WebsiteDirectory;
-            
+
             var server = new SimpleHttpServer(path, Settings.Default.Port,
                 Settings.Default.BufferSizeBytes);
 
