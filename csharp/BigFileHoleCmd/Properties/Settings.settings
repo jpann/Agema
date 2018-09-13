@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BigFileHoleCmd.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WebsiteDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\\nas-1\FTP Inbound\DCR</Value>
+    </Setting>
+    <Setting Name="UploadDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\\nas-1\FTP Inbound\DCR</Value>
+    </Setting>
+    <Setting Name="BufferSizeBytes" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4096</Value>
+    </Setting>
+    <Setting Name="Setting" Type="Newtonsoft.Json.Linq.JObject" Scope="Application">
+      <Value Profile="(Default)">{}</Value>
+    </Setting>
+    <Setting Name="Port" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">8087</Value>
+    </Setting>
+    <Setting Name="Host" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
