@@ -1,0 +1,33 @@
+[core]
+	autocrlf = true
+	excludesfile = C:\\Users\\Jay\\Documents\\gitignore_global.txt
+[user]
+	name = Jay Cummins
+	email = jay.cummins@worldviewsolutions.com
+[difftool "sourcetree"]
+	cmd = 'C:/Program Files/KDiff3/kdiff3.exe' \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+	cmd = 'C:/Program Files/KDiff3/kdiff3.exe' \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
+[credential]
+	helper = manager
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  cob = checkout -b
+  df = diff
+  lg = "log --all --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+  hist  = "for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) %(color:green)%(committerdate:relative)%(color:reset))'"
+  rhist = "for-each-ref --sort=-committerdate refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) %(color:green)%(committerdate:relative)%(color:reset))'"
+  slg = "log --pretty=format:"%h%x09%an%x09%ad%x09%s" --date=iso" 
+	yest = log --pretty=format:%h%x09%an%x09%ad%x09%s --date=iso --author=jay --since=\"2 days ago\" --branches=*
+	ping = "branch -a --contains   "
+	list = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+	rlist = for-each-ref --sort=committerdate refs/remotes/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+	meld = "merge --no-commit --no-ff "
+	mm = merge --no-ff --no-commit
+  
+[mergetool "kdiff3"]
+	cmd = \"C:\\Program Files\\KDiff3\\kdiff3.exe\" $BASE $LOCAL $REMOTE -o $MERGED
