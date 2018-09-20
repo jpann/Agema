@@ -247,6 +247,8 @@ namespace BigFileHoleCmd
 
                 writer.Close();
             }
+
+            Console.WriteLine($"{currentSize} bytes written to: {filePath}. Original Stream Length: {totalSize} bytes.");
         }
 
         /// <summary>
