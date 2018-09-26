@@ -1,7 +1,7 @@
 -- =============================================
 -- Author:		Jay Cummins (cumminsjp@gmail.com)
 -- Create date: 2018-04-20
--- Description:	Performs a text search of sql modules, tables, and columns (e.g. stored procudures) for string matches.
+-- Description:	Performs a text search of sql modules, tables, and columns (e.g. stored procedures) for string matches.
 -- =============================================
 
 IF EXISTS ( SELECT  1
@@ -26,7 +26,7 @@ CREATE FUNCTION dbo.Search
 )
 RETURNS 
  @t TABLE (
-	object_Name sysname
+	object_Name nvarchar(max)
 	,type_desc nvarchar(120)
 	,definition nvarchar(max)
 	,schema_name nvarchar(256)
@@ -41,7 +41,7 @@ BEGIN
 			,OBJECT_SCHEMA_NAME(o.object_id) AS schema_name
 		FROM sys.sql_modules m
 		INNER JOIN sys.objects o ON m.object_id = o.object_id
-		WHERE m.DEFINITION LIKE '%' + @Search + '%'
+		WHERE  m.DEFINITION  COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%'+ @Search +'%' ESCAPE '\'		 
 
 		UNION
 
@@ -74,8 +74,19 @@ BEGIN
 			,TABLE_SCHEMA
 		FROM INFORMATION_SCHEMA.COLUMNS
 		WHERE COLUMN_NAME LIKE '%' + @Search + '%'
-		ORDER BY o.name
-			,o.type_desc;
+			
+		UNION
+
+		SELECT  DISTINCT
+			ObjectFullPath
+			,ReferencingType
+			,null
+			,ReferencedSchemaName  
+		FROM dbo.SearchDependents (@Search);
+	
+	;
+
+
 
 
 
@@ -83,6 +94,14 @@ BEGIN
 END;
 GO
 
+
 --sp_help 'INFORMATION_SCHEMA.TABLES'
 --sp_help 'sys.sql_modules '
 -- SELECT * FROM dbo.search('Category')
+/*
+
+ 
+
+*/
+
+ 
