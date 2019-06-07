@@ -1,5 +1,5 @@
 with inputs as (
-	select 'user_account'::text as table_name
+	select 'sens_coll'::text as table_name
 )
 , cte as (
 select
@@ -24,7 +24,7 @@ where
 --order by
 --	ordinal_position
 )
-select 'public '||csharptype||nullablechar||' '||compasskey_util.camel_caps(column_name)||' { get; set; }' from CTE;
+select '[Column("'||column_name||'")]'||E'\n'||'public '||csharptype||nullablechar||' '||compasskey_util.camel_caps(column_name)||' { get; set; }' from CTE;
  
  
 
