@@ -1,0 +1,76 @@
+
+
+
+SET PGPASSWORD=
+
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" AK_Features_20190501.txt
+
+
+ogrinfo
+VA_Features_20190501.txt
+
+
+
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" 
+
+
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" AK_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" AL_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" AR_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" AS_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" AZ_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" CA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" CO_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" CT_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" DC_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" DE_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" FL_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" FM_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" GA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" GU_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" HI_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" IA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" ID_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" IL_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" IN_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" KS_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" KY_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" LA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MD_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" ME_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MH_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MI_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MN_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MO_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MP_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MS_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" MT_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" NC_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" ND_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" NE_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" NH_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" NJ_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" NM_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" NV_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" NY_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" OH_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" OK_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" OR_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" PA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" PR_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" PW_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" RI_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" SC_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" SD_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" TN_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" TX_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" UM_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" UT_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" VA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" VI_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" VT_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" WA_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" WI_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" WV_Features_20190501.txt
+ogr2ogr -lco SCHEMA=gnis -f "PostgreSQL" "PG:host=localhost user=postgres dbname=wrk port=5433" WY_Features_20190501.txt

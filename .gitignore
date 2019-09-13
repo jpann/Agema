@@ -203,3 +203,4 @@ buildIntDemo.bat
 
  
 csharp/BigFileHoleCmd/tmp.bat
+gis/data/ne_10m_admin_1_states_provinces.sql
